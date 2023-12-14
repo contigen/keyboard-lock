@@ -46,7 +46,7 @@ function App() {
       </button>
       <button
         onClick={() => {
-          document.exitFullscreen()
+          document.fullscreenElement && document.exitFullscreen()
           navigator.keyboard.unlock()
         }}
       >
