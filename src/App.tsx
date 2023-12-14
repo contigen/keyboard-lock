@@ -1,17 +1,30 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
+  const isPressed = useRef(false)
   const [count, setCount] = useState(0)
   const [key, setKey] = useState(``)
-  const pressedKey = ({ code }: { code: string }) => setKey(code)
-
+  const keyUp = ({ code }: KeyboardEvent) => {
+    setKey(code)
+  }
+  const keyDown = (evt: KeyboardEvent) => {
+    isPressed.current = true
+    if (evt.altKey) console.log(`alt key + space`)
+  }
+  const keyPressed = (evt: KeyboardEvent) => {
+    evt.code === `Space` && console.log(evt.code)
+  }
   useEffect(() => {
-    document.addEventListener(`keyup`, pressedKey)
+    document.addEventListener(`keyup`, keyUp)
+    document.addEventListener(`keydown`, keyDown)
+    document.addEventListener(`keypress`, keyPressed)
     return () => {
-      document.removeEventListener(`keyup`, pressedKey)
+      document.removeEventListener(`keyup`, keyUp)
+      document.removeEventListener(`keydown`, keyDown)
+      document.removeEventListener(`keypress`, keyPressed)
     }
   }, [])
   return (
