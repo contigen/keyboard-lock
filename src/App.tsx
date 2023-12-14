@@ -6,15 +6,6 @@ import './App.css'
 function App() {
   const [count, setCount] = useState(0)
   const [key, setKey] = useState(``)
-  try {
-    const keyboard = navigator?.keyboard
-    keyboard.getLayoutMap().then(keyboardLayoutMap => {
-      const upKey = keyboardLayoutMap.get(`KeyA`)
-      console.log(upKey)
-    })
-  } catch {
-    console.log(`Not supported!`)
-  }
   const pressedKey = ({ code }: { code: string }) => setKey(code)
 
   useEffect(() => {
